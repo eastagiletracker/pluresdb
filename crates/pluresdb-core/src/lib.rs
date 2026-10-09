@@ -254,7 +254,7 @@ impl VectorIndex {
         // anyway, so an exact scan costs nothing extra and cannot miss one.
         let live = self.id_to_idx.len();
         let indexed = *self.next_idx.lock();
-        if indexed <= VECTOR_SEARCH_EF {
+        if live <= VECTOR_SEARCH_EF {
             return self.exact_search(query, limit);
         }
         let neighbours = self.hnsw.search(query, limit, VECTOR_SEARCH_EF);
